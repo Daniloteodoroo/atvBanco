@@ -1,113 +1,185 @@
 import java.util.Scanner;
 
 public class App {
-
     public static void main(String[] args) {
         Scanner in = new Scanner(System.in);
 
-        Banco cadastrarBanco = new Banco();
+        String nome;
+        Integer numero, exibir;
+        double valor;
 
-        String[] cadastro = new String[100];
-        double[] deposito = new double[100];
-
-        char escolha;
-        String numeroDeUsuario;
-        int quantidade = 0, opcao;
+        int opcao = 0, escolha;
 
         do {
 
-            cadastrarBanco.opcao();
+            opcao();
             opcao = in.nextInt();
 
             switch (opcao) {
                 case 1:
-                    for (int i = 0; i < cadastro.length; i++) {
-                        System.out.print("Informe o número da conta: ");
-                        cadastrarBanco.setnumeroDaConta(in.next());
 
-                        cadastro[quantidade] = cadastrarBanco.getnumeroDaConta();
-                        quantidade++;
+                    Contas();
+                    escolha = in.nextInt();
 
-                        System.out.println("Cadastro [" + quantidade + "] realizado com sucesso.");
-                        System.out.print("Deseja realizar um novo cadastro? s/n: ");
-                        escolha = in.next().charAt(0);
+                    if (escolha == 1) {
+                        System.out.print("Nome do cliente: ");
+                        nome = in.next();
+                        System.out.print("Número da conta: ");
+                        numero = in.nextInt();
 
-                        if (escolha != 's') {
-                            break;
-                        }
+                        ContaBancaria cb = new ContaBancaria(nome, numero);
+
+                        System.out.print("Valor a ser depositado: ");
+                        valor = in.nextDouble();
+
+                        cb.setDepositar(valor);
+                    } else if (escolha == 2) {
+                        System.out.print("Nome do cliente: ");
+                        nome = in.next();
+                        System.out.print("Número da conta: ");
+                        numero = in.nextInt();
+
+                        ContaPoupanca cp = new ContaPoupanca(nome, numero);
+
+                        System.out.print("Valor a ser depositado: ");
+                        valor = in.nextDouble();
+
+                        cp.setDepositar(valor);
+                    } else {
+                        System.out.print("Nome do cliente: ");
+                        nome = in.next();
+                        System.out.print("Número da conta: ");
+                        numero = in.nextInt();
+
+                        ContaEspecial ce = new ContaEspecial(nome, numero);
+
+                        System.out.print("Valor a ser depositado: ");
+                        valor = in.nextDouble();
+
+                        ce.setDepositar(valor);
                     }
                     break;
+
                 case 2:
+                    Contas();
+                    escolha = in.nextInt();
 
-                    System.out.println("OPÇÕES DE USUÁRIO...");
+                    if (escolha == 1) {
+                        System.out.print("Nome do cliente: ");
+                        nome = in.next();
+                        System.out.print("Número da conta: ");
+                        numero = in.nextInt();
 
-                    for (int i = 0; i < quantidade; i++) {
+                        ContaBancaria cb = new ContaBancaria(nome, numero);
 
-                        System.out.println("Usuário [" + cadastro[i] + "]. ");
+                        System.out.print("Valor a ser sacado: ");
+                        valor = in.nextDouble();
+
+                        cb.setSacar(valor);
+                    } else if (escolha == 2) {
+                        System.out.print("Nome do cliente: ");
+                        nome = in.next();
+                        System.out.print("Número da conta: ");
+                        numero = in.nextInt();
+
+                        ContaPoupanca cp = new ContaPoupanca(nome, numero);
+
+                        System.out.print("Valor a ser sacado: ");
+                        valor = in.nextDouble();
+
+                        cp.setSacar(valor);
+                    } else {
+                        System.out.print("Nome do cliente: ");
+                        nome = in.next();
+                        System.out.print("Número da conta: ");
+                        numero = in.nextInt();
+
+                        ContaEspecial ce = new ContaEspecial(nome, numero);
+
+                        System.out.print("Valor a ser sacado: ");
+                        valor = in.nextDouble();
+
+                        ce.setSacar(valor);
                     }
-
-                    System.out.print("Digite a conta que você queira depositar: ");
-                    numeroDeUsuario = in.next();
-
-                    for (int i = 0; i < quantidade; i++) {
-
-                        if (numeroDeUsuario.equals(cadastro[i])) {
-                            System.out.print("Digite o valor do deposito em R$: ");
-                            cadastrarBanco.setdeposito(in.nextDouble());
-                            deposito[i] = cadastrarBanco.getdeposito();
-                        } else {
-                            System.out.println("Usuário não encontrado.");
-                        }
-                    }
-
-                    System.out.print("Deseja realizar um novo depósito? s/n: ");
-                    escolha = in.next().charAt(0);
-
-                    if (escolha != 's') {
-                        break;
-                    }
-
-                    System.out.println("Usuário não encontrado.");
-
-                    System.out.println();
-
                     break;
 
                 case 3:
+                    Contas();
+                    escolha = in.nextInt();
 
-                    System.out.println("OPÇÕES DE USUÁRIO...");
+                    if (escolha == 1) {
+                        System.out.print("Nome do cliente: ");
+                        nome = in.next();
+                        System.out.print("Número da conta: ");
+                        numero = in.nextInt();
 
-                    for (int i = 0; i < quantidade; i++) {
+                        ContaBancaria cb = new ContaBancaria(nome, numero);
 
-                        System.out.println("Usuário [" + cadastro[i] + "]. ");
-                    }
+                        exibir = cb.exibir(numero);
 
-                    System.out.print("Digite a conta que você queira sacar: ");
-                    numeroDeUsuario = in.next();
+                        if (exibir == -1){
+                            System.out.println("Conta não encontrada.");
+                        } else {
+                            System.out.println(exibir);
+                        }
+                        
+                    } else if (escolha == 2) {
+                        System.out.print("Nome do cliente: ");
+                        nome = in.next();
+                        System.out.print("Número da conta: ");
+                        numero = in.nextInt();
 
-                    System.out.println("Informe o valor do saque: ");
-                    cadastrarBanco.setSaque(in.nextDouble());
+                        ContaBancaria cp = new ContaBancaria(nome, numero);
 
-                    for (int i = 0; i < quantidade - 1; i++) {
-                        System.out.println("O usuário [" + cadastro[i] + "] agora tem R$ " + cadastrarBanco.getSaque());
-                    }
-                    break;
+                        exibir = cp.exibir(numero);
 
-                case 4:
-                    for (int i = 0; i < quantidade; i++) {
+                        if (exibir == -1){
+                            System.out.println("Conta não encontrada.");
+                        } else {
+                            System.out.println(exibir);
+                        }
+                        
+                    } else {
+                        System.out.print("Nome do cliente: ");
+                        nome = in.next();
+                        System.out.print("Número da conta: ");
+                        numero = in.nextInt();
 
-                        System.out.println("Usuário [" + cadastro[i] + "]," + " possui R$" + deposito[i]);
+                        ContaBancaria ce = new ContaBancaria(nome, numero);
+
+                        exibir = ce.exibir(numero);
+
+                        if (exibir == -1){
+                            System.out.println("Conta não encontrada.");
+                        } else {
+                            System.out.println(exibir);
+                        }
                     }
                     break;
 
                 case 0:
-                    System.out.println("O PROGRAMA ESTÁ ENCERRADO.");
+                    System.out.println("Bye, Bye!");
                     break;
-
                 default:
-
                     System.out.println("Opção inválida.");
             }
         } while (opcao != 0);
+    }
+
+    public static void opcao() {
+        System.out.println("1 - Depositar");
+        System.out.println("2 - sacar");
+        System.out.println("3 - exibir");
+        System.out.println("0 - Encerrar");
+        System.out.println();
+        System.out.print("Informe a opção desejada: ");
+    }
+
+    public static void Contas() {
+        System.out.println("Opção (1): Conta Bancaria");
+        System.out.println("Opção (2): Conta Poupança");
+        System.out.println("Opção (3): Conta Especial");
+        System.out.println();
+        System.out.print("Informe a pção desejada: ");
     }
 }
